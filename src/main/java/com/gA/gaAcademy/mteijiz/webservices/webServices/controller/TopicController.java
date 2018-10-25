@@ -1,9 +1,13 @@
 package com.gA.gaAcademy.mteijiz.webservices.webServices.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,4 +27,12 @@ public class TopicController {
 		Topic returnTopic = topicService.createTopic(inputTopic);
 		return returnTopic;
 	}
+	
+	@GetMapping("/topic")
+	public List<Topic> getTopics(){
+		List<Topic> topics = new ArrayList<>();
+		topics = topicService.getAllTopics();
+		return topics;
+	}
+	
 }
