@@ -8,7 +8,10 @@ import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PathVariable;
+=======
+>>>>>>> 2caa8b2d29332a1f4f836ab60553fe501e3a80a0
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,13 +32,20 @@ public class TopicController {
 		Topic returnTopic = topicService.createTopic(inputTopic);
 		return returnTopic;
 	}
+<<<<<<< HEAD
 
 	@GetMapping("/topic")
 	public List<Topic> getTopics() {
+=======
+	
+	@GetMapping("/topic")
+	public List<Topic> getTopics(){
+>>>>>>> 2caa8b2d29332a1f4f836ab60553fe501e3a80a0
 		List<Topic> topics = new ArrayList<>();
 		topics = topicService.getAllTopics();
 		return topics;
 	}
+<<<<<<< HEAD
 
 	@GetMapping("/topic/{id}")
 	public Topic getByID(@PathVariable int id) {
@@ -47,4 +57,7 @@ public class TopicController {
 		Topic t = topicService.updateTopic(id, updateTopic);
 		return t;
 	}
+=======
+	
+>>>>>>> 2caa8b2d29332a1f4f836ab60553fe501e3a80a0
 }
