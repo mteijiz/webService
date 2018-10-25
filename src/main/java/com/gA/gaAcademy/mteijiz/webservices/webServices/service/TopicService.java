@@ -27,5 +27,10 @@ public class TopicService {
 		return topics;
 	}
 
+	public Topic getId(int id) {
+		Topic t = topicRepository.findById(id).get();
+		return t;
+	}
+
 
 }
