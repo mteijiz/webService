@@ -38,10 +38,12 @@ public class Topic {
 
 	}
 
-	public Topic(String title, Date datePost, String description, int author) {
+	public Topic(String title, Date date, String description, int author) {
 		super();
-		this.title = title;
-		this.datePost = datePost;
+		//this.title = title;
+		Date d = new Date();//el problema con esto es que el servidor este en otro lado y se cree con otra zona horaria distinta a la que estas 
+		this.datePost = d;
+		this.datePost = date;
 		this.description = description;
 		this.author = author;
 	}// alt + shift + s para hacer el constructor

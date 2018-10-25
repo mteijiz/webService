@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,17 +29,22 @@ public class TopicController {
 		Topic returnTopic = topicService.createTopic(inputTopic);
 		return returnTopic;
 	}
-	
+
 	@GetMapping("/topic")
-	public List<Topic> getTopics(){
+	public List<Topic> getTopics() {
 		List<Topic> topics = new ArrayList<>();
 		topics = topicService.getAllTopics();
 		return topics;
 	}
-	
+
 	@GetMapping("/topic/{id}")
 	public Topic getByID(@PathVariable int id) {
 		Topic t = topicService.getId(id);
+		return t;
+	}
+
+	@PutMapping("/topic/{id}") public Topic updateTopic(@PathVariable int id, @RequestBody Topic updateTopic) {//actualizar uno o mas campos de un topic
+		Topic t = topicService.updateTopic(id, updateTopic);
 		return t;
 	}
 }
