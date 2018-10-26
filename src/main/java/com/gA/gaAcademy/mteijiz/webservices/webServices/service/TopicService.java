@@ -27,7 +27,6 @@ public class TopicService {
 		return topics;
 	}
 
-<<<<<<< HEAD
 	public Topic getId(int id) {
 		Topic t = topicRepository.findById(id).get();// si solo retornara con el metodo, cuando se hace eso se tiene que
 														// se crea una variable anonima, es decir que da lo mismo
@@ -48,12 +47,23 @@ public class TopicService {
 	}// modificamos los valores que no estan en null, si tiene valor lo tenemos que
 		// modificar
 
-=======
-	public List<Topic> getAllTopics() {
-		List<Topic> topics = new ArrayList<>();
-		topics = topicRepository.findAll();
-		return topics;
+	public int deleteTopicFisico(int id) {
+		topicRepository.deleteById(id);
+		return id;
 	}
 
->>>>>>> 2caa8b2d29332a1f4f836ab60553fe501e3a80a0
+	public int deleteLogicoTopic(int id) {
+		int toReturn = 0;
+		Topic t = topicRepository.findById(id).get();
+		if(!t.getDeleted()) {
+			t.deleted();
+			toReturn = t.getId();
+			topicRepository.save(t);
+		}
+		return t.getId();
+		
+		
+	}
+
+
 }

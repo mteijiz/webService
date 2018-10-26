@@ -34,13 +34,16 @@ public class Topic {
 	@Column(name = "author")
 	private int author;
 
+	@Column(name = "status")
+	private boolean deleted = false;//lo inicializamos en false y lo podemos cambiar con el set. No hace falta poner en constructor
+	
 	public Topic() {
 
 	}
 
 	public Topic(String title, Date date, String description, int author) {
 		super();
-		//this.title = title;
+		this.title = title;
 		Date d = new Date();//el problema con esto es que el servidor este en otro lado y se cree con otra zona horaria distinta a la que estas 
 		this.datePost = d;
 		this.datePost = date;
@@ -79,9 +82,22 @@ public class Topic {
 	public void setAuthor(int author) {
 		this.author = author;
 	}
+	
+	public boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	public int getId() {
 		return id;
+	}
+
+	public void deleted() {
+		this.deleted = true;
+		
 	}
 
 }

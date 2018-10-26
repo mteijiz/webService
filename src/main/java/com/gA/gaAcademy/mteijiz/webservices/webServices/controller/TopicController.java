@@ -6,12 +6,12 @@ import java.util.List;
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-<<<<<<< HEAD
+
 import org.springframework.web.bind.annotation.PathVariable;
-=======
->>>>>>> 2caa8b2d29332a1f4f836ab60553fe501e3a80a0
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,21 +31,15 @@ public class TopicController {
 	public Topic createTopic(@RequestBody Topic inputTopic) {
 		Topic returnTopic = topicService.createTopic(inputTopic);
 		return returnTopic;
-	}
-<<<<<<< HEAD
+	}//Esto hecho de esta manera tiene un incoveniente y es que yo devuelvo el topid, pero cuando falla deberia volver una excepcion
+	
 
 	@GetMapping("/topic")
 	public List<Topic> getTopics() {
-=======
-	
-	@GetMapping("/topic")
-	public List<Topic> getTopics(){
->>>>>>> 2caa8b2d29332a1f4f836ab60553fe501e3a80a0
 		List<Topic> topics = new ArrayList<>();
 		topics = topicService.getAllTopics();
 		return topics;
 	}
-<<<<<<< HEAD
 
 	@GetMapping("/topic/{id}")
 	public Topic getByID(@PathVariable int id) {
@@ -53,11 +47,30 @@ public class TopicController {
 		return t;
 	}
 
-	@PutMapping("/topic/{id}") public Topic updateTopic(@PathVariable int id, @RequestBody Topic updateTopic) {//actualizar uno o mas campos de un topic
+	@PutMapping("/topic/{id}")
+	public Topic updateTopic(@PathVariable int id, @RequestBody Topic updateTopic) {// actualizar uno o mas campos de un
+																					// topic
 		Topic t = topicService.updateTopic(id, updateTopic);
 		return t;
 	}
-=======
 	
->>>>>>> 2caa8b2d29332a1f4f836ab60553fe501e3a80a0
+	@DeleteMapping("/topic/{id}")
+	public ResponseEntity<?> deleteTopic(@PathVariable int id){
+		int idTopic = topicService.deleteTopicFisico(id);
+		String message = "El topic: " + idTopic + " fue borrado exitosamente";
+		return new ResponseEntity<String>(message, HttpStatus.OK);
+	}
+	//el http response ahora lo vamos a ver como responseEntity
+	//En este caso no vamos a parametrizas el ResponseEntity
+	
+	@DeleteMapping("/topic/logic/{id}")//Le ponemos otra ruta para no tener problemas con el de arriba que estaria repetido sino
+	public ResponseEntity<?> deleteLogicTopic(@PathVariable int id){
+		int fueBorrado = topicService.deleteLogicoTopic(id);
+		if(fueBorrado > 0){
+			String msg = "El topic: " + fueBorrado + " fue borrado exitosamente";
+			return new ResponseEntity<String>(msg, HttpStatus.OK);
+		}
+		else
+			return new ResponseEntity<String>("No se pudo encontrar " + fueBorrado, HttpStatus.NOT_FOUND);
+	}
 }
