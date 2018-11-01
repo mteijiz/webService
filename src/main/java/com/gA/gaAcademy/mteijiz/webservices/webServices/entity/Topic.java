@@ -1,11 +1,18 @@
 package com.gA.gaAcademy.mteijiz.webservices.webServices.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale.Category;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Topic {
@@ -37,11 +44,25 @@ public class Topic {
 	@Column(name = "status")
 	private boolean deleted = false;//lo inicializamos en false y lo podemos cambiar con el set. No hace falta poner en constructor
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Reply> listOfReplies = new ArrayList<>();
+	
+	/*@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Category>*/ 
+	
 	public Topic() {
 
 	}
 
-	public Topic(String title, Date date, String description, int author) {
+	public List<Reply> getListOfReplies() {
+		return listOfReplies;
+	}
+
+	public void setListOfReplies(List<Reply> listOfReplies) {
+		this.listOfReplies = listOfReplies;
+	}
+
+	public Topic(String title, Date date, String description, int author, List<Reply> listOfReplies) {
 		super();
 		this.title = title;
 		Date d = new Date();//el problema con esto es que el servidor este en otro lado y se cree con otra zona horaria distinta a la que estas 
@@ -49,6 +70,7 @@ public class Topic {
 		this.datePost = date;
 		this.description = description;
 		this.author = author;
+		this.listOfReplies = listOfReplies;
 	}// alt + shift + s para hacer el constructor
 
 	public String getTitle() {
@@ -98,6 +120,10 @@ public class Topic {
 	public void deleted() {
 		this.deleted = true;
 		
+	}
+
+	public void deleteListOfReplies() {
+		this.listOfReplies.clear();
 	}
 
 }
